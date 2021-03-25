@@ -35,25 +35,25 @@ export class MathjaxComponent  implements OnChanges, OnInit {
    this.renderMath();
   }
 
-  updateMathObt(){
+  updateMathObt(): void{
     this.mathJaxObject = this.cs.nativeGlobal()['MathJax'];
   }
 
-  renderMath() {
+  renderMath(): void {
     this.updateMathObt();
-    let angObj = this;
+    const angObj = this;
     setTimeout(() => {
       angObj.mathJaxObject['Hub'].Queue(['Typeset', angObj.mathJaxObject.Hub], 'mathContent');
-    },1000)
+    }, 1000);
   }
-  loadMathConfig() {
+  loadMathConfig(): void {
     this.updateMathObt();
     this.mathJaxObject.Hub.Config({
       showMathMenu: false,
-      tex2jax: { inlineMath: [['$', '$']],displayMath:[["$$", "$$"]] },
+      tex2jax: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
       menuSettings: { zoom: 'Double-Click', zscale: '150%' },
       CommonHTML: { linebreaks: { automatic: true } },
-      "HTML-CSS": { linebreaks: { automatic: true } },
+      'HTML-CSS': { linebreaks: { automatic: true } },
       SVG: { linebreaks: { automatic: true } }
     });
   }

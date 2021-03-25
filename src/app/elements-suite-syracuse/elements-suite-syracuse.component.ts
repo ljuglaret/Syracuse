@@ -30,7 +30,7 @@ export class ElementsSuiteSyracuseComponent implements OnInit {
   }
 
 onKeyup(event: KeyboardEvent): void{
-  this.termeInitial = +(<HTMLInputElement> event.target).value;
+  this.termeInitial = +( event.target as HTMLInputElement ).value;
 
   const opt =  { scales: {
                   yAxes: [{
@@ -49,9 +49,9 @@ onKeyup(event: KeyboardEvent): void{
     {data: syracuse(this.termeInitial),
       pointColor : 'black',
       label: 'Elements de Syracuse d element initial : ' + this.termeInitial,
-      pointBackgroundColor: function(context) {
+      pointBackgroundColor: (context) => {
         const index: number = context.dataIndex;
-        const rg = +(<HTMLInputElement> event.target).value;
+        const rg = +( event.target as HTMLInputElement ).value;
 
         const value: number = context.dataset.data[index];
         return value === 1   ? 'red' :
@@ -59,10 +59,10 @@ onKeyup(event: KeyboardEvent): void{
             value === tempsDeVolEnAltitude(syracuse(rg))   ? 'black' :
             '';
     },
-    pointRadius: function(context) {
+    pointRadius: (context) => {
       const index: number = context.dataIndex;
       const value: number = context.dataset.data[index];
-      const rg = +(<HTMLInputElement> event.target).value;
+      const rg = +( event.target as HTMLInputElement ).value;
 
       return value === 1   ? 15 :
           value === maxTab(syracuse(rg)) ? 15 :
