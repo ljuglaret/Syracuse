@@ -1,4 +1,4 @@
-import {  ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MathjaxComponent } from './mathjax.component';
 

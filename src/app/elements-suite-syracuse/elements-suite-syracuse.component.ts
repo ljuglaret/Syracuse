@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
 import 'chartjs-plugin-datalabels';
-import {syracuse , genereAbscisse, maxTab, rang1} from './app.calcul';
+import {syracuse , genereAbscisse, maxTab, tempsDeVolEnAltitude} from './app.calcul';
 @Component({
   selector: 'app-elements-suite-syracuse',
   templateUrl: './elements-suite-syracuse.component.html',
@@ -13,45 +13,42 @@ export class ElementsSuiteSyracuseComponent implements OnInit {
 
   constructor() {}
 
-  public  rang = 17;
-  public maxi = maxTab(syracuse(this.rang));
+  public  termeInitial = 17;
 
-  public barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-  };
-  public barChartLabels: number[] = genereAbscisse(this.rang + 1 );
+  public barChartOptions = {} ;
+
+  public barChartLabels: number[] = [];
 
   public barChartType = 'line';
   public barChartLegend = true;
 
-  public barChartData = [
-    {data: syracuse(this.rang),
-      
-      
-      label: 'Elements de Syracuse d element initial' + this.rang,
-      pointBackgroundColor: function(context) {
-        const index: number = context.dataIndex;
-        const value: number = context.dataset.data[index];
-        return value === 1   ? 'red' :
-            value === maxTab(syracuse(17)) ? 'blue' :
-            value % 0 ===  5 ? 'green' :
-                        '';
-    },
-    borderColor : 'violet',
-    fill: false}
-  ];
+  public barChartData = [];
 
 
 
-onKey(event: KeyboardEvent): void{
-  this.rang = +(<HTMLInputElement> event.target).value;
-  this.barChartLabels  = genereAbscisse(this.rang) ;
+  ngOnInit(): void {
+  }
+
+onKeyup(event: KeyboardEvent): void{
+  this.termeInitial = +(<HTMLInputElement> event.target).value;
+
+  const opt =  { scales: {
+                  yAxes: [{
+                      scaleLabel:  {
+                      display: true,
+                      },
+                      ticks: {
+                                  min: 1,
+                                  max: maxTab(syracuse(this.termeInitial ) ) + 5,
+                                  stepSize: 1}
+                      }]}};
+
+  this.barChartOptions = opt;
+  this.barChartLabels  = genereAbscisse(this.termeInitial) ;
   this.barChartData = [
-    {data: syracuse(this.rang),
-      label: 'Elements de Syracuse d element initial' + this.rang,
-      
-     
+    {data: syracuse(this.termeInitial),
+      pointColor : 'black',
+      label: 'Elements de Syracuse d element initial : ' + this.termeInitial,
       pointBackgroundColor: function(context) {
         const index: number = context.dataIndex;
         const rg = +(<HTMLInputElement> event.target).value;
@@ -59,14 +56,23 @@ onKey(event: KeyboardEvent): void{
         const value: number = context.dataset.data[index];
         return value === 1   ? 'red' :
             value ===  maxTab(syracuse(rg)) ? 'blue' :
-                        '';
+            value === tempsDeVolEnAltitude(syracuse(rg))   ? 'black' :
+            '';
+    },
+    pointRadius: function(context) {
+      const index: number = context.dataIndex;
+      const value: number = context.dataset.data[index];
+      const rg = +(<HTMLInputElement> event.target).value;
+
+      return value === 1   ? 15 :
+          value === maxTab(syracuse(rg)) ? 15 :
+          value === tempsDeVolEnAltitude(syracuse(rg))   ? 15 :
+                      3;
     },
     borderColor : 'violet',
     fill: false}
   ];
 }
 
-  ngOnInit(): void {
-  }
 }
 

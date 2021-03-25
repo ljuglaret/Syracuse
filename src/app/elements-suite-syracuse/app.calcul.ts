@@ -42,9 +42,23 @@ export function rang1(tab: number[]): number{
     return un;
 }
 
+export function tempsDeVolEnAltitude(tab: number[]): number{
+    let un = 0;
+    let i = 0;
+    while (true){
+        if (tab[i] < tab[0]){
+            un = i;
+            break;
+        }
+        i++;
+
+    }
+    return tab[i-1];
+}
+
 export function genereAbscisse(dep: number): number[] {
     const absc: number[] = [];
-    for (let i = 0 ; i <= rang1(syracuse(dep)) + 2; i++) {
+    for (let i = 0 ; i <= rang1(syracuse(dep)) ; i++) {
         absc[i] = i;
     }
     return absc;
