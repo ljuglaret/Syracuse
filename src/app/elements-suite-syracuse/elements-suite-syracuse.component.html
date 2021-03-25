@@ -1,0 +1,16 @@
+<input (keyup) = "onKey($event)" value = "17"  type = "number" min="2" max="20">
+  <div style="display: block">
+    <canvas width="400px" height="100px"
+        baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+  
+          >   
+    </canvas>
+ 
+  </div>
+
+
