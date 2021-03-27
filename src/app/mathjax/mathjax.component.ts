@@ -13,7 +13,7 @@ export class MathjaxComponent  implements OnChanges, OnInit {
               + '$u_{n+1} = {3*u_{n}} + 1$ si n est impair';
   tempsDeVol = 'Le temps de vol (en rouge)'
               + ': c est le plus petit indice n tel que '
-              + '$u_{n+1} = 1 $';
+              + '$u_{n} = 1 $';
   tempsDeVolEnAltitude = 'Le temps de vol en altitude (en noir) : c est le plus petit indice n tel que '
               + '$u_{n+1} < u_{0} $';
   altitudeMax = 'L altitude maximale(en bleu) : c est la valeur maximale de la suite.';

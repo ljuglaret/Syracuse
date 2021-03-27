@@ -19,8 +19,8 @@ export function syracuse(rangDepart: number): number[]{
   }
 
 export function maxTab(tab: number[]): number{
-    let maxi = 0;
-    for (let i = 0 ; i < tab.length ; i++){
+    let maxi = tab[0];
+    for (let i = 1 ; i < tab.length ; i++){
         if (tab[i] > maxi){
             maxi = tab[i];
         }
@@ -31,13 +31,12 @@ export function maxTab(tab: number[]): number{
 export function rang1(tab: number[]): number{
     let un = 0;
     let i = 0;
-    while(true){
+    while (true){
         if (tab[i] === 1){
             un = i;
             break;
         }
         i++;
-
     }
     return un;
 }
@@ -53,7 +52,7 @@ export function tempsDeVolEnAltitude(tab: number[]): number{
         i++;
 
     }
-    return tab[i-1];
+    return tab[i - 1];
 }
 
 export function genereAbscisse(dep: number): number[] {
