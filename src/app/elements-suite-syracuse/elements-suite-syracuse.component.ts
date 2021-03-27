@@ -13,7 +13,7 @@ export class ElementsSuiteSyracuseComponent implements OnInit {
 
   constructor() {}
 
-  public  termeInitial = 17;
+  public  termeInitial = 2;
 
   public barChartOptions = {} ;
 
@@ -29,50 +29,55 @@ export class ElementsSuiteSyracuseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-onKeyup(event: KeyboardEvent): void{
-  this.termeInitial = +( event.target as HTMLInputElement ).value;
-
-  const opt =  { scales: {
-                  yAxes: [{
-                      scaleLabel:  {
-                      display: true,
-                      },
-                      ticks: {
-                                  min: 1,
-                                  max: maxTab(syracuse(this.termeInitial ) ) + 5,
-                                  stepSize: 1}
-                      }]}};
-
-  this.barChartOptions = opt;
-  this.barChartLabels  = genereAbscisse(this.termeInitial) ;
-  this.barChartData = [
-    {data: syracuse(this.termeInitial),
-      pointColor : 'black',
-      label: 'Elements de Syracuse d element initial : ' + this.termeInitial,
-      pointBackgroundColor: (context) => {
+onChange(event: KeyboardEvent): void{
+  let pf = parseFloat(( event.target as HTMLInputElement ).value);
+  if( isNaN (pf) || pf > 50 || pf < 2){
+    this.termeInitial = 2;
+  }
+  else{
+    this.termeInitial = +( event.target as HTMLInputElement ).value;
+    const opt =  { scales: {
+                    yAxes: [{
+                        scaleLabel:  {
+                        display: true,
+                        },
+                        ticks: {
+                                    min: 1,
+                                    max: maxTab(syracuse(this.termeInitial ) ) + 5,
+                                    stepSize: 1}
+                        }]}};
+  
+    this.barChartOptions = opt;
+    this.barChartLabels  = genereAbscisse(this.termeInitial) ;
+    this.barChartData = [
+      {data: syracuse(this.termeInitial),
+        pointColor : 'black',
+        label: 'Elements de Syracuse d element initial : ' + this.termeInitial,
+        pointBackgroundColor: (context) => {
+          const index: number = context.dataIndex;
+          const rg = +( event.target as HTMLInputElement ).value;
+  
+          const value: number = context.dataset.data[index];
+          return value === 1   ? 'red' :
+              value ===  maxTab(syracuse(rg)) ? 'blue' :
+              value === tempsDeVolEnAltitude(syracuse(rg))   ? 'black' :
+              '';
+      },
+      pointRadius: (context) => {
         const index: number = context.dataIndex;
-        const rg = +( event.target as HTMLInputElement ).value;
-
         const value: number = context.dataset.data[index];
-        return value === 1   ? 'red' :
-            value ===  maxTab(syracuse(rg)) ? 'blue' :
-            value === tempsDeVolEnAltitude(syracuse(rg))   ? 'black' :
-            '';
-    },
-    pointRadius: (context) => {
-      const index: number = context.dataIndex;
-      const value: number = context.dataset.data[index];
-      const rg = +( event.target as HTMLInputElement ).value;
-
-      return value === 1   ? 15 :
-          value === maxTab(syracuse(rg)) ? 15 :
-          value === tempsDeVolEnAltitude(syracuse(rg))   ? 15 :
-                      3;
-    },
-    borderColor : 'violet',
-    fill: false}
-  ];
-}
+        const rg = +( event.target as HTMLInputElement ).value;
+  
+        return value === 1   ? 15 :
+            value === maxTab(syracuse(rg)) ? 15 :
+            value === tempsDeVolEnAltitude(syracuse(rg))   ? 15 :
+                        3;
+      },
+      borderColor : 'violet',
+      fill: false}
+    ];
+  }
 
 }
 
+}

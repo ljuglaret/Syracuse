@@ -4,6 +4,14 @@ export function syracuse(rangDepart: number): number[]{
     let termeSuivant: number;
     const termes: number[] = [];
     termes[0] = premierTerme;
+    /*
+    tant que (rang < 50) ou terme suivant different de 1
+    u_10 = 1 => stop
+    u_51 = 2 => stop
+
+    non(rang < 50 && termeSuivant !== 1)
+     => rang >= 50 ou termeSuivant == 1
+    */
     while (rang < 50 || termeSuivant !== 1) {
         if (premierTerme % 2 === 0) {
             termeSuivant    =   premierTerme / 2;
