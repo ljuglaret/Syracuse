@@ -638,7 +638,48 @@ class ElementsSuiteSyracuseComponent {
         this.barChartLegend = true;
         this.barChartData = [];
     }
+    construitSyracuse(valDep) {
+        this.termeInitial = valDep;
+        const opt = { scales: {
+                yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                        },
+                        ticks: {
+                            min: 1,
+                            max: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial)) + 5,
+                            stepSize: 1
+                        }
+                    }]
+            } };
+        this.barChartOptions = opt;
+        this.barChartLabels = Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["genereAbscisse"])(this.termeInitial);
+        this.barChartData = [
+            { data: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial),
+                pointColor: 'black',
+                label: 'Elements de Syracuse d element initial : ' + this.termeInitial, pointBackgroundColor: (context) => {
+                    const index = context.dataIndex;
+                    const rg = valDep;
+                    const value = context.dataset.data[index];
+                    return value === 1 ? 'red' :
+                        value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'blue' :
+                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'black' :
+                                '';
+                },
+                pointRadius: (context) => {
+                    const index = context.dataIndex;
+                    const value = context.dataset.data[index];
+                    const rg = valDep;
+                    return value === 1 ? 15 :
+                        value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
+                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
+                                3;
+                }, borderColor: 'violet',
+                fill: false }
+        ];
+    }
     ngOnInit() {
+        this.construitSyracuse(2);
     }
     onChange(event) {
         let pf = parseFloat(event.target.value);
@@ -647,43 +688,7 @@ class ElementsSuiteSyracuseComponent {
         }
         else {
             this.termeInitial = +event.target.value;
-            const opt = { scales: {
-                    yAxes: [{
-                            scaleLabel: {
-                                display: true,
-                            },
-                            ticks: {
-                                min: 1,
-                                max: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial)) + 5,
-                                stepSize: 1
-                            }
-                        }]
-                } };
-            this.barChartOptions = opt;
-            this.barChartLabels = Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["genereAbscisse"])(this.termeInitial);
-            this.barChartData = [
-                { data: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial),
-                    pointColor: 'black',
-                    label: 'Elements de Syracuse d element initial : ' + this.termeInitial, pointBackgroundColor: (context) => {
-                        const index = context.dataIndex;
-                        const rg = +event.target.value;
-                        const value = context.dataset.data[index];
-                        return value === 1 ? 'red' :
-                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'blue' :
-                                value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'black' :
-                                    '';
-                    },
-                    pointRadius: (context) => {
-                        const index = context.dataIndex;
-                        const value = context.dataset.data[index];
-                        const rg = +event.target.value;
-                        return value === 1 ? 15 :
-                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
-                                value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
-                                    3;
-                    }, borderColor: 'violet',
-                    fill: false }
-            ];
+            this.construitSyracuse(this.termeInitial);
         }
     }
 }

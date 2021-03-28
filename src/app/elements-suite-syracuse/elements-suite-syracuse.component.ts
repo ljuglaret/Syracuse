@@ -25,17 +25,9 @@ export class ElementsSuiteSyracuseComponent implements OnInit {
   public barChartData = [];
 
 
-
-  ngOnInit(): void {
-  }
-
-onChange(event: KeyboardEvent): void{
-  let pf = parseFloat(( event.target as HTMLInputElement ).value);
-  if( isNaN (pf) || pf > 50 || pf < 2){
-    this.termeInitial = 2;
-  }
-  else{
-    this.termeInitial = +( event.target as HTMLInputElement ).value;
+ construitSyracuse(valDep : number): void{
+   
+    this.termeInitial = valDep;
     const opt =  { scales: {
                     yAxes: [{
                         scaleLabel:  {
@@ -55,8 +47,7 @@ onChange(event: KeyboardEvent): void{
         label: 'Elements de Syracuse d element initial : ' + this.termeInitial,
         pointBackgroundColor: (context) => {
           const index: number = context.dataIndex;
-          const rg = +( event.target as HTMLInputElement ).value;
-  
+          const rg = valDep;
           const value: number = context.dataset.data[index];
           return value === 1   ? 'red' :
               value ===  maxTab(syracuse(rg)) ? 'blue' :
@@ -66,8 +57,7 @@ onChange(event: KeyboardEvent): void{
       pointRadius: (context) => {
         const index: number = context.dataIndex;
         const value: number = context.dataset.data[index];
-        const rg = +( event.target as HTMLInputElement ).value;
-  
+        const rg = valDep;
         return value === 1   ? 15 :
             value === maxTab(syracuse(rg)) ? 15 :
             value === tempsDeVolEnAltitude(syracuse(rg))   ? 15 :
@@ -76,6 +66,19 @@ onChange(event: KeyboardEvent): void{
       borderColor : 'violet',
       fill: false}
     ];
+  }
+  ngOnInit(): void {
+    this.construitSyracuse(2);
+  }
+
+onChange(event: KeyboardEvent): void{
+  let pf = parseFloat(( event.target as HTMLInputElement ).value);
+  if( isNaN (pf) || pf > 50 || pf < 2){
+    this.termeInitial = 2;
+  }
+  else{
+    this.termeInitial = +(event.target as HTMLInputElement ).value;
+    this.construitSyracuse(this.termeInitial);
   }
 
 }
