@@ -631,7 +631,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class ElementsSuiteSyracuseComponent {
     constructor() {
-        this.termeInitial = 17;
+        this.termeInitial = 2;
         this.barChartOptions = {};
         this.barChartLabels = [];
         this.barChartType = 'line';
@@ -640,51 +640,57 @@ class ElementsSuiteSyracuseComponent {
     }
     ngOnInit() {
     }
-    onKeyup(event) {
-        this.termeInitial = +event.target.value;
-        const opt = { scales: {
-                yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                        },
-                        ticks: {
-                            min: 1,
-                            max: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial)) + 5,
-                            stepSize: 1
-                        }
-                    }]
-            } };
-        this.barChartOptions = opt;
-        this.barChartLabels = Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["genereAbscisse"])(this.termeInitial);
-        this.barChartData = [
-            { data: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial),
-                pointColor: 'black',
-                label: 'Elements de Syracuse d element initial : ' + this.termeInitial, pointBackgroundColor: (context) => {
-                    const index = context.dataIndex;
-                    const rg = +event.target.value;
-                    const value = context.dataset.data[index];
-                    return value === 1 ? 'red' :
-                        value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'blue' :
-                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'black' :
-                                '';
-                },
-                pointRadius: (context) => {
-                    const index = context.dataIndex;
-                    const value = context.dataset.data[index];
-                    const rg = +event.target.value;
-                    return value === 1 ? 15 :
-                        value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
-                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
-                                3;
-                }, borderColor: 'violet',
-                fill: false }
-        ];
+    onChange(event) {
+        let pf = parseFloat(event.target.value);
+        if (isNaN(pf) || pf > 50 || pf < 2) {
+            this.termeInitial = 2;
+        }
+        else {
+            this.termeInitial = +event.target.value;
+            const opt = { scales: {
+                    yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                            },
+                            ticks: {
+                                min: 1,
+                                max: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial)) + 5,
+                                stepSize: 1
+                            }
+                        }]
+                } };
+            this.barChartOptions = opt;
+            this.barChartLabels = Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["genereAbscisse"])(this.termeInitial);
+            this.barChartData = [
+                { data: Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(this.termeInitial),
+                    pointColor: 'black',
+                    label: 'Elements de Syracuse d element initial : ' + this.termeInitial, pointBackgroundColor: (context) => {
+                        const index = context.dataIndex;
+                        const rg = +event.target.value;
+                        const value = context.dataset.data[index];
+                        return value === 1 ? 'red' :
+                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'blue' :
+                                value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 'black' :
+                                    '';
+                    },
+                    pointRadius: (context) => {
+                        const index = context.dataIndex;
+                        const value = context.dataset.data[index];
+                        const rg = +event.target.value;
+                        return value === 1 ? 15 :
+                            value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["maxTab"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
+                                value === Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["tempsDeVolEnAltitude"])(Object(_app_calcul__WEBPACK_IMPORTED_MODULE_1__["syracuse"])(rg)) ? 15 :
+                                    3;
+                    }, borderColor: 'violet',
+                    fill: false }
+            ];
+        }
     }
 }
 ElementsSuiteSyracuseComponent.ɵfac = function ElementsSuiteSyracuseComponent_Factory(t) { return new (t || ElementsSuiteSyracuseComponent)(); };
 ElementsSuiteSyracuseComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: ElementsSuiteSyracuseComponent, selectors: [["app-elements-suite-syracuse"]], decls: 3, vars: 5, consts: [["value", "2", "type", "number", "min", "2", "max", "20", 3, "keyup"], [2, "display", "block"], ["width", "400px", "height", "100px", "baseChart", "", 3, "datasets", "labels", "options", "legend", "chartType"]], template: function ElementsSuiteSyracuseComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "input", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("keyup", function ElementsSuiteSyracuseComponent_Template_input_keyup_0_listener($event) { return ctx.onKeyup($event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("keyup", function ElementsSuiteSyracuseComponent_Template_input_keyup_0_listener($event) { return ctx.onChange($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](2, "canvas", 2);
